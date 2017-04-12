@@ -6,22 +6,24 @@
  */
 var request = require('request');
 
-// module.exports = {
-//     uberApi: function(req,res){
-//         var http = require('http'), options = {
-//                 host : "graph.facebook.com",
-//                 port : 80,
-//                 path : "/"+other.uid+"/likes?access_token="+other.token,
-//                 method : 'GET'
-//             };
-//     }
-
-
-// };
-
+const options = {
+  url: 'https://www.reddit.com/r/funny.json',
+  method: 'GET',
+  headers: {
+    'Accept': 'application/json',
+    'Accept-Charset': 'utf-8',
+    'User-Agent': 'my-reddit-client'
+  }
+};
 module.exports = {
-  index: function (request, response) {
-    return response.view('homepage', {
+  index: function (req, res) {
+
+
+    request(options, function (err, response, body) {
+      let json = JSON.parse(body);
+      console.log(json);
+    });
+    return res.view('homepage', {
       currentDate: (new Date()).toString()
     });
   }
