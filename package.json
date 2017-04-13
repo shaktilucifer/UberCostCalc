@@ -33,5 +33,8 @@
     "url": "git://github.com/imperfectluck/uberCost.git"
   },
   "author": "imperfectluck",
-  "license": ""
+  "license": "",
+  "devDependencies": {
+    "node-uber": "^1.0.0"
+  }
 }
