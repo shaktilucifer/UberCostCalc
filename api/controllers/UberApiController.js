@@ -8,7 +8,7 @@ var request = require('request');
 var Uber = require('node-uber');
 
 const options = {
-  url: 'https://login.uber.com/oauth/v2/authorize?client_id=XYSz&response_type=code',
+  url: '/api/login',
   method: 'GET',
   headers: {
     'Accept': 'application/json',
@@ -16,18 +16,28 @@ const options = {
     // 'User-Agent': 'my-reddit-client'
   }
 };
-
+var uber = new Uber({
+  client_id: 'CLIENT_ID',
+  client_secret: 'CLIENT_SECRET',
+  server_token: 'SERVER_TOKEN',
+  redirect_uri: 'REDIRECT URL',
+  name: 'APP_NAME',
+  language: 'en_US', // optional, defaults to en_US
+  sandbox: true // optional, defaults to false
+});
 module.exports = {
   index: function (req, res) {
-
-
     request(options, function (err, response, body) {
       // let json = JSON.parse();
+      var url = uber.getAuthorizeUrl(['history','profile', 'request', 'places']);
+         console.log(url);
+
+     return response.redirect(url);
       console.log(body);
     });
-    return res.view('homepage', {
-      currentDate: (new Date()).toString()
-    });
+    // return res.view('homepage', {
+    //   currentDate: (new Date()).toString()
+    // });
   }
 };
 
